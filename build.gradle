@@ -1,0 +1,19 @@
+plugins {
+  id 'java'
+}
+
+repositories {
+   jcenter()
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+dependencies {
+   testCompile "junit:junit:4.12"
+   testCompile "org.assertj:assertj-core:3.4.1"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.13"
+}
