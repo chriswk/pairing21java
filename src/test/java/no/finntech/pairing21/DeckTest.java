@@ -17,7 +17,6 @@ public class DeckTest {
         Deck deck = new Deck();
         Deck deck2 = new Deck();
         assertThat(deck).isEqualTo(deck2);
-        assertThat(deck.getCards()).containsSequence(deck2.getCards().toArray(new Card[deck2.getCards().size()]));
     }
 
     @Test
@@ -25,5 +24,12 @@ public class DeckTest {
         Deck deck = new Deck();
         Deck shuffledDeck = deck.shuffle();
         assertThat(deck.getCards()).isNotEqualTo(shuffledDeck);
+    }
+
+    @Test
+    public void twoShufflesAreDifferent() {
+        Deck firstShuffle = Deck.shuffled();
+        Deck secondShuffle = Deck.shuffled();
+        assertThat(firstShuffle).isNotEqualTo(secondShuffle);
     }
 }

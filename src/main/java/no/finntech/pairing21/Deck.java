@@ -21,7 +21,11 @@ public class Deck {
         );
     }
 
-    public Deck(List<Card> cards) {
+    public static Deck shuffled() {
+        return new Deck().shuffle();
+    }
+
+    Deck(List<Card> cards) {
         this.cards = cards;
     }
 
@@ -33,9 +37,10 @@ public class Deck {
         return cards.size();
     }
 
-    public Deck shuffle() {
-        List<Card> shuffled = new ArrayList<>();
-        Collections.copy(cards, shuffled);
+    Deck shuffle() {
+        List<Card> shuffled = new ArrayList<>(cards.size());
+        shuffled.addAll(cards);
+        Collections.shuffle(shuffled);
         return new Deck(shuffled);
     }
 

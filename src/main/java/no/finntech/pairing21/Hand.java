@@ -8,6 +8,9 @@ import static java.util.stream.Collectors.joining;
 public class Hand {
     public List<Card> cards;
 
+    public Hand() {
+        this.cards = new ArrayList<>();
+    }
     public Hand(Card first, Card second) {
         cards = new ArrayList<>();
         cards.add(first);
