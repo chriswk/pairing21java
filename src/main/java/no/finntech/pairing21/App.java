@@ -15,7 +15,7 @@ public class App {
                 String result = IntStream.range(0, numberOfGames).mapToObj(gameNo -> {
                     Game g = new Game();
                     return g.play();
-                }).collect(groupingBy(f -> f))
+                }).collect(groupingBy(r -> r.getWinner().getName()))
                   .entrySet()
                   .stream()
                   .map(e -> e.getKey() + " " + e.getValue().size())

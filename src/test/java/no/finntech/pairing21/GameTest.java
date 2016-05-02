@@ -3,9 +3,6 @@ package no.finntech.pairing21;
 import org.junit.Test;
 
 import static java.util.stream.Collectors.toList;
-import static no.finntech.pairing21.GameState.DEALERWINS;
-import static no.finntech.pairing21.GameState.DRAW;
-import static no.finntech.pairing21.GameState.SAMWINS;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -27,8 +24,7 @@ public class GameTest {
     @Test
     public void aFullGameCanBePlayed() {
         Game g = new Game();
-        GameState result = g.play();
-        assertThat(result).isIn(SAMWINS, DEALERWINS, DRAW);
+        g.play();
     }
 
     @Test

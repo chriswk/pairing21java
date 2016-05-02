@@ -24,7 +24,7 @@ public class Game {
         this.dealer = dealer;
     }
 
-    public GameState play() {
+    public GameResult play() {
         initialDeal();
         if (!checkBlackjack()) {
             samDraws();
@@ -32,32 +32,29 @@ public class Game {
                 dealerDraws();
             }
         }
-        GameState state = decideWinner();
+        GameResult state = decideWinner();
         return state;
     }
 
-    private GameState decideWinner() {
+    private GameResult decideWinner() {
         if (sam.busted()) {
-            return GameState.DEALERWINS;
+            return new GameResult(dealer, sam);
         }
         if (dealer.busted()) {
-            return GameState.SAMWINS;
+            return new GameResult(sam, dealer);
         }
         if (sam.blackjack()) {
-            return GameState.SAMWINS;
+            return new GameResult(sam, dealer);
         }
         if (dealer.blackjack()) {
-            return GameState.DEALERWINS;
+            return new GameResult(dealer, sam);
         }
-        if (sam.score() == dealer.score()) {
-            System.out.println(sam);
-            System.out.println(dealer);
-            return GameState.DRAW;
-        } else if (sam.score() > dealer.score()) {
-            return GameState.SAMWINS;
-        } else {
-            return GameState.DEALERWINS;
+        if (sam.score() > dealer.score()) {
+            return new GameResult(sam, dealer);
+        } else if (dealer.score() > sam.score()){
+            return new GameResult(dealer, sam);
         }
+        return null;
     }
 
     private void samDraws() {
