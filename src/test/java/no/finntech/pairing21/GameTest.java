@@ -21,7 +21,7 @@ public class GameTest {
     public void afterInitialDealAllPlayersHasTwoCards() {
         Game g = new Game();
         g.initialDeal();
-        assertThat(g.getPlayers().stream().allMatch(p -> p.hand.cards.size() == 2)).isTrue();
+        assertThat(g.getPlayers().stream().allMatch(p -> p.handSize() == 2)).isTrue();
     }
 
     @Test

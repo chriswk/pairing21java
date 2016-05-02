@@ -1,7 +1,10 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'application'
 }
+
+mainClassName = "no.finntech.pairing21.App"
 
 repositories {
     jcenter()

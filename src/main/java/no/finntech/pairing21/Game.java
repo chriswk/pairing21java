@@ -6,19 +6,19 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class Game {
-    final Iterator<Card> deck;
+    private final Iterator<Card> deck;
     private Player sam;
     private Player dealer;
 
-    public List<Player> getPlayers() {
+    List<Player> getPlayers() {
         return asList(sam, dealer);
     }
 
-    public Game() {
+    Game() {
         this(Deck.shuffled(), new Player("Sam", PlayerRules.sam), new Player("Dealer", PlayerRules.dealer));
     }
 
-    private Game(Deck deck, Player one, Player dealer) {
+    public Game(Deck deck, Player one, Player dealer) {
         this.deck = deck.getCards().iterator();
         this.sam = one;
         this.dealer = dealer;
@@ -28,22 +28,30 @@ public class Game {
         initialDeal();
         if (!checkBlackjack()) {
             samDraws();
-            if (!sam.hand.busted()) {
+            if (!sam.busted()) {
                 dealerDraws();
             }
         }
-        return decideWinner();
+        GameState state = decideWinner();
+        return state;
     }
 
     private GameState decideWinner() {
-        System.out.println(sam.toString() +" vs " + dealer.toString());
-        if (sam.hand.busted()) {
+        if (sam.busted()) {
             return GameState.DEALERWINS;
         }
-        if (dealer.hand.busted()) {
+        if (dealer.busted()) {
             return GameState.SAMWINS;
         }
+        if (sam.blackjack()) {
+            return GameState.SAMWINS;
+        }
+        if (dealer.blackjack()) {
+            return GameState.DEALERWINS;
+        }
         if (sam.score() == dealer.score()) {
+            System.out.println(sam);
+            System.out.println(dealer);
             return GameState.DRAW;
         } else if (sam.score() > dealer.score()) {
             return GameState.SAMWINS;
@@ -59,13 +67,13 @@ public class Game {
     }
 
     private void dealerDraws() {
-        while(dealer.hitMe(sam.hand)) {
+        while(dealer.hitMe(sam.getHand())) {
             dealer.addCard(deck.next());
         }
     }
 
     private boolean checkBlackjack() {
-        return sam.hand.blackjack() || dealer.hand.blackjack();
+        return sam.blackjack() || dealer.blackjack();
     }
 
 

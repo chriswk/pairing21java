@@ -2,31 +2,37 @@ package no.finntech.pairing21;
 
 import java.util.function.BiFunction;
 
-public class Player {
-    final String name;
-    Hand hand;
-    final BiFunction<Hand, Hand, Boolean> hitMe;
+class Player {
+    private final String name;
+    private final Hand hand;
+    private final BiFunction<Hand, Hand, Boolean> hitMe;
 
-    public Player(String name, BiFunction<Hand, Hand, Boolean> hitMe) {
+    Player(String name, BiFunction<Hand, Hand, Boolean> hitMe) {
         this.name = name;
         this.hitMe = hitMe;
         this.hand = new Hand();
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public Integer score() {
+    Hand getHand() { return hand; }
+
+    Integer score() {
         return hand.score();
     }
 
-    public boolean hitMe(Hand oppenentHand) {
-        return hitMe.apply(hand, oppenentHand);
+    Boolean blackjack() { return hand.blackjack(); }
+
+    Boolean busted() { return hand.busted(); }
+
+    boolean hitMe(Hand opponentHand) {
+        return hitMe.apply(hand, opponentHand);
     }
 
-    public void addCard(Card card) {
-        this.hand.addCard(card);
+    void addCard(Card card) {
+        hand.addCard(card);
     }
 
     @Override
@@ -41,5 +47,9 @@ public class Player {
             player.append(" (BUSTED)");
         }
         return player.toString();
+    }
+
+    int handSize() {
+        return hand.cards.size();
     }
 }
