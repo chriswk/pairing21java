@@ -1,9 +1,11 @@
 package no.finntech.pairing21;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class Hand {
     public List<Card> cards;
@@ -11,10 +13,8 @@ public class Hand {
     public Hand() {
         this.cards = new ArrayList<>();
     }
-    public Hand(Card first, Card second) {
-        cards = new ArrayList<>();
-        cards.add(first);
-        cards.add(second);
+    public Hand(Card... cards) {
+        this.cards = Arrays.stream(cards).collect(toList());
     }
 
     public void addCard(Card card) {
