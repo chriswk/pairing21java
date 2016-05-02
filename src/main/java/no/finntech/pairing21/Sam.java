@@ -9,6 +9,6 @@ public class Sam {
 
 
     public boolean hitMe() {
-        return true;
+        return hand.score() < 17;
     }
 }

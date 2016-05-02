@@ -3,7 +3,7 @@ package no.finntech.pairing21;
 import org.junit.Test;
 
 import static no.finntech.pairing21.Rank.*;
-import static no.finntech.pairing21.Suit.*
+import static no.finntech.pairing21.Suit.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SamTest {
@@ -15,11 +15,10 @@ public class SamTest {
         assertThat(sam.hitMe()).isTrue();
     }
 
-/*
     @Test
     public void samStandsOnTwenty() {
         Hand twenty = new Hand(new Card(Clubs, Jack), new Card(Spades, King));
-        assertThat()
+        Sam sam = new Sam(twenty);
+        assertThat(sam.hitMe()).isFalse();
     }
-*/
 }

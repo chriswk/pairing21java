@@ -1,12 +1,14 @@
 package no.finntech.pairing21;
 
-import java.util.List;
-
 public class Dealer {
     Hand hand;
 
+    public Dealer(Hand hand) {
+        this.hand = hand;
+    }
 
-    public boolean hitMe(List<Hand> hands) {
-        return true;
+
+    public boolean hitMe(Hand opponent) {
+        return hand.score() <= opponent.score();
     }
 }
