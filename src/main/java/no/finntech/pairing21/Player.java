@@ -31,12 +31,15 @@ public class Player {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder(name);
-        return sb.append(":")
-          .append(hand.toString())
-          .append(",")
-          .append(" score: ")
-          .append(score())
-          .toString();
+        StringBuilder player = new StringBuilder(name)
+                .append(":")
+                .append(hand.toString())
+                .append(",")
+                .append(" score: ")
+                .append(score());
+        if (hand.busted()) {
+            player.append(" (BUSTED)");
+        }
+        return player.toString();
     }
 }

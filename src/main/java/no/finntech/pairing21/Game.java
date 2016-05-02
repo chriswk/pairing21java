@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static no.finntech.pairing21.GameState.DEALERWINS;
-import static no.finntech.pairing21.GameState.SAMWINS;
 
 public class Game {
     final Iterator<Card> deck;
@@ -30,24 +28,32 @@ public class Game {
         initialDeal();
         if (!checkBlackjack()) {
             samDraws();
-            dealerDraws();
+            if (!sam.hand.busted()) {
+                dealerDraws();
+            }
         }
         return decideWinner();
     }
 
     private GameState decideWinner() {
         System.out.println(sam.toString() +" vs " + dealer.toString());
-        if (sam.score() == dealer.score() || (sam.hand.busted() && dealer.hand.busted())) {
+        if (sam.hand.busted()) {
+            return GameState.DEALERWINS;
+        }
+        if (dealer.hand.busted()) {
+            return GameState.SAMWINS;
+        }
+        if (sam.score() == dealer.score()) {
             return GameState.DRAW;
         } else if (sam.score() > dealer.score()) {
-            return sam.hand.busted() ? DEALERWINS : SAMWINS;
+            return GameState.SAMWINS;
         } else {
-            return dealer.hand.busted() ? SAMWINS : DEALERWINS;
+            return GameState.DEALERWINS;
         }
     }
 
     private void samDraws() {
-        while(sam.hitMe(dealer.hand)) {
+        while(sam.hitMe(new Hand())) {
             sam.addCard(deck.next());
         }
     }
